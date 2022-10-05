@@ -23,6 +23,7 @@ router.get("/posts", async (req, res) => {
     const postsAll = await Posts.find().sort({date: -1});       // find() 싹다 가져옴
      const [...posts] = postsAll.map((post) => {
          return {
+            _id : post._id,
             postsId : post.postsId,
              title : post.title,
              name : post.name,
@@ -55,14 +56,15 @@ router.get("/posts/:postsId", async (req, res) => {
         return res.staurs(400).json({success:false, errorMessage: "게시글이 없습니다."})
     }
     const [...posts] = postsAll.map((post) => {
-        return {
-           postsId : post.postsId,
-            title : post.title,
-            name : post.name,
-            content : post.content,
-            data : post.data
-        }   
-    })
+         return {
+            _id : post._id,
+            postsId : post.postsId,
+             title : post.title,
+             name : post.name,
+             content : post.content,
+             data : post.data
+         }   
+     })
     
     //const detail = posts.filter((item) => {return item.postsId === Number(postsId)})
 
