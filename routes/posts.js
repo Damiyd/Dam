@@ -6,13 +6,13 @@ const router = express.Router();
 // 게시글 작성 POST ( ex) localhost:3000/api/posts )
 router.post("/posts", async (req, res) => {                 // async(비동기) 붙여야 await 할 수 있음/ 
                                          
-    const {postsId, name, password, title} = req.body;
+    const {postsId, name, password, title, content} = req.body;
     const posts = await Posts.find({ postsId });
 
     if (posts.length) {
         return res.status(400).json({ success: false, errorMessage: "이미 있는 데이터입니다." });
       }
-      const createdPoods = await Posts.create({ postsId, name, password, title});
+      const createdPoods = await Posts.create({ postsId, name, password, title, content});
 
       res.json({ posts: createdPoods });
 });
@@ -26,6 +26,7 @@ router.get("/posts", async (req, res) => {
             postsId : post.postsId,
              title : post.title,
              name : post.name,
+             content : post.content,
              data : post.data
          }   
      })
