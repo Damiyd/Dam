@@ -23,6 +23,7 @@ router.get("/posts", async (req, res) => {
     const postsAll = await Posts.find().sort({date: -1});       // find() 싹다 가져옴
      const [...posts] = postsAll.map((post) => {
          return {
+           _id : _id,
             postsId : post.postsId,
              title : post.title,
              name : post.name,
@@ -52,6 +53,7 @@ router.get("/posts/:postsId", async (req, res) => {
     const postsAll = await Posts.find().sort({date: -1});       // find() 싹다 가져옴
     const [...posts] = postsAll.map((post) => {
         return {
+          _id : _id,
            postsId : post.postsId,
             title : post.title,
             name : post.name,
