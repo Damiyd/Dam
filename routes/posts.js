@@ -49,20 +49,20 @@ router.get("/posts", async (req, res) => {
 router.get("/posts/:postsId", async (req, res) => {
 
     const {postsId} = req.params;
-    const postsAll = await Posts.find().sort({date: -1});       // find() 싹다 가져옴
+    const postsAll = await Posts.find({postsId : Number(postsId)});      // find() 싹다 가져옴
+
+    if (postsId.length === 0) {
+        return res.staurs(400).json({success:false, errorMessage: "게시글이 없습니다."})
+    }
     const [...posts] = postsAll.map((post) => {
         return {
            postsId : post.postsId,
             title : post.title,
             name : post.name,
-            content: post.content,
+            content : post.content,
             data : post.data
         }   
     })
-
-    if (postsId.length === 0) {
-        return res.staurs(400).json({success:false, errorMessage: "게시글이 없습니다."})
-    }
     
     //const detail = posts.filter((item) => {return item.postsId === Number(postsId)})
 
