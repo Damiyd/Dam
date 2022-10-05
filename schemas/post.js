@@ -23,6 +23,10 @@ const postSchema = mongoose.Schema({
     data: {
         type: Date,
         default: Date.now
+    },
+    content: {
+        type:String,
+        required : true
     }
 
     // 요구사항을 보고 어떤 요소들이 들어가야할지 생각해보세요.
